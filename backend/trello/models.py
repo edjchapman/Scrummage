@@ -47,7 +47,6 @@ class TrelloLabel(models.Model):
     Trello Label.
     """
     trello_id = models.CharField(max_length=50)
-    trello_list = models.ForeignKey('trello.TrelloList', on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
 
     def __str__(self):
