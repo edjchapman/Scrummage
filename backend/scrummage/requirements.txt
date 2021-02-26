@@ -29,3 +29,7 @@ Markdown==3.3.4
 # PostgreSQL database adapter for Python
 # https://www.psycopg.org/
 psycopg2==2.8.6
+
+# HTTP library
+# https://requests.readthedocs.io/
+requests==2.25.1
