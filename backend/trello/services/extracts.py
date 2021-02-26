@@ -1,4 +1,4 @@
-from trello.models import TrelloBoard, TrelloList, TrelloCard
+from trello.models import TrelloBoard, TrelloList, TrelloCard, TrelloLabel
 from trello.utils.api import get_from_trello
 from trello.utils.string_utils import get_est
 
@@ -21,9 +21,10 @@ class TrelloBoardService:
 
     @staticmethod
     def save_board(board_id):
-        tb = get_from_trello(board_id)
+        # tb = get_from_trello(f"boards/{board_id}/lists")
+        tb = get_from_trello(f"boards/{board_id}")
         trello_board, _ = TrelloBoard.objects.update_or_create(
-            id=tb.get("id"),
+            trello_id=tb.get("id"),
             defaults={"name": tb.get("name")}
         )
         return trello_board
@@ -53,6 +54,17 @@ class TrelloBoardService:
         for tl in t_labels:
             trello_card.trello_labels.add(tl)
 
+    @staticmethod
+    def save_labels(t_labels):
+        trello_labels = []
+        for tl in t_labels:
+            trello_label, _ = TrelloLabel.objects.update_or_create(
+                trello_id=tl.get("id"),
+                defaults={"name": tl.get("name")}
+            )
+            trello_labels.append(trello_label)
+        return trello_labels
+
     def pull_data(self):
         trello_board = self.save_board(board_id=self.board_id)
         trello_lists = self.get_lists(board_id=trello_board.trello_id)
@@ -64,10 +76,11 @@ class TrelloBoardService:
             )
             cards = self.get_cards(list_id=trello_list.trello_id)
             for c in cards:
+                trello_labels = self.save_labels(c.get("labels"))
                 self.save_card(
                     t_id=c.get("id"),
                     t_list=trello_list,
-                    t_labels=[label.get("name") for label in c.get("labels")],
+                    t_labels=trello_labels,
                     t_name=c.get("name"),
                     t_url=c.get("shortUrl"),
                     t_estimate=get_est(c.get("name"))

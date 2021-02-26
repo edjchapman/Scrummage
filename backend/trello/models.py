@@ -33,13 +33,13 @@ class TrelloCard(models.Model):
     trello_labels = models.ManyToManyField('trello.TrelloLabel', blank=True)
     name = models.CharField(max_length=50)
     url = models.URLField(null=True, blank=True)
-    estimate = models.FloatField(default=0)
+    estimate = models.FloatField(default=0, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
     def label_list(self):
-        return [l.name for l in self.trello_labels.all()]
+        return [tl.name for tl in self.trello_labels.all()]
 
 
 class TrelloLabel(models.Model):
