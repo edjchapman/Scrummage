@@ -1,7 +1,9 @@
 from django.db import models
 
+from common.models import BaseModel
 
-class TrelloBoard(models.Model):
+
+class TrelloBoard(BaseModel):
     """
     Trello Board
     """
@@ -12,7 +14,7 @@ class TrelloBoard(models.Model):
         return self.name
 
 
-class TrelloList(models.Model):
+class TrelloList(BaseModel):
     """
     Trello List
     """
@@ -24,7 +26,7 @@ class TrelloList(models.Model):
         return self.name
 
 
-class TrelloCard(models.Model):
+class TrelloCard(BaseModel):
     """
     Trello Card.
     """
@@ -42,7 +44,7 @@ class TrelloCard(models.Model):
         return [tl.name for tl in self.trello_labels.all()]
 
 
-class TrelloLabel(models.Model):
+class TrelloLabel(BaseModel):
     """
     Trello Label.
     """
