@@ -11,11 +11,11 @@ class TrelloBoardAdmin(admin.ModelAdmin):
     """
     fields = [
         "trello_id",
+        "created_at",
         "name"
     ]
 
     list_display = [
-        "trello_id",
         "name"
     ]
 
@@ -31,13 +31,12 @@ class TrelloListAdmin(admin.ModelAdmin):
     """
     fields = [
         "trello_id",
+        "created_at",
         "trello_board",
         "name"
     ]
 
     list_display = [
-        "trello_id",
-        "trello_board",
         "name"
     ]
 
@@ -58,6 +57,7 @@ class TrelloCardAdmin(admin.ModelAdmin):
     """
     fields = [
         "trello_id",
+        "created_at",
         "trello_list",
         "trello_labels",
         "name",
@@ -66,7 +66,6 @@ class TrelloCardAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
-        "trello_id",
         "trello_list",
         "name",
         "clickable_url",
@@ -81,7 +80,7 @@ class TrelloCardAdmin(admin.ModelAdmin):
 
     list_filter = [
         "trello_list__trello_board",
-        "trello_list",
+        "created_at",
         "estimate",
         "trello_labels"
     ]
@@ -97,11 +96,11 @@ class TrelloLabelAdmin(admin.ModelAdmin):
     """
     fields = [
         "trello_id",
+        "created_at",
         "name"
     ]
 
     list_display = [
-        "trello_id",
         "name"
     ]
 
