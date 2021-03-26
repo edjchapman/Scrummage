@@ -14,6 +14,7 @@ class TrelloBoardAdmin(admin.ModelAdmin):
         "created_at",
         "name"
     ]
+    readonly_fields = fields
 
     list_display = [
         "name"
@@ -35,6 +36,7 @@ class TrelloListAdmin(admin.ModelAdmin):
         "trello_board",
         "name"
     ]
+    readonly_fields = fields
 
     list_display = [
         "name"
@@ -62,15 +64,25 @@ class TrelloCardAdmin(admin.ModelAdmin):
         "trello_labels",
         "name",
         "url",
-        "estimate"
+        "points_estimated",
+        "points_consumed_extra"
+    ]
+    readonly_fields = [
+        "trello_id",
+        "created_at",
+        "trello_list",
+        "trello_labels",
+        "name",
+        "url"
     ]
 
     list_display = [
-        "trello_list",
         "name",
         "clickable_url",
-        "estimate",
-        "label_list"
+        "trello_list",
+        "created_at",
+        "points_estimated",
+        "points_consumed_extra"
     ]
 
     search_fields = [
@@ -79,9 +91,11 @@ class TrelloCardAdmin(admin.ModelAdmin):
     ]
 
     list_filter = [
-        "trello_list__trello_board",
         "created_at",
-        "estimate",
+        "points_estimated",
+        "points_consumed_extra",
+        "trello_list",
+        "trello_list__trello_board",
         "trello_labels"
     ]
 
@@ -99,6 +113,7 @@ class TrelloLabelAdmin(admin.ModelAdmin):
         "created_at",
         "name"
     ]
+    readonly_fields = fields
 
     list_display = [
         "name"
