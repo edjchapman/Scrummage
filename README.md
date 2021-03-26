@@ -12,7 +12,7 @@ Running the Backend Locally
 
 1. Clone the repo
     ``` 
-    $ git clone 
+    $ git clone git@github.com:Natoora/Scrummage.git
     ```
 
 2. Install the requirements
