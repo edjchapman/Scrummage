@@ -41,14 +41,15 @@ class TrelloBoardService:
         return trello_list
 
     @staticmethod
-    def save_card(t_id, t_list, t_labels, t_name, t_url, t_estimate):
+    def save_card(t_id, t_list, t_labels, t_name, t_url, t_estimate, t_points_extra):
         trello_card, _ = TrelloCard.objects.update_or_create(
             trello_id=t_id,
             defaults={
                 "trello_list": t_list,
                 "name": t_name,
                 "url": t_url,
-                "estimate": t_estimate
+                "points_estimated": t_estimate,
+                "points_consumed_extra": t_points_extra
             }
         )
         for tl in t_labels:
@@ -83,5 +84,6 @@ class TrelloBoardService:
                     t_labels=trello_labels,
                     t_name=c.get("name"),
                     t_url=c.get("shortUrl"),
-                    t_estimate=get_est(c.get("name"))
+                    t_estimate=get_est(c.get("name")),
+                    t_points_extra=get_est(c.get("name"), bracket_style="[]")
                 )
