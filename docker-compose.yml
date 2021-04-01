@@ -16,9 +16,13 @@ services:
       - redis
     restart: always
 
-  # LOAD BALANCER
   proxy:
-    image: nginx
+    build:
+      context: ./docker/nginx/proxy
+      args:
+        NGINX_SERVER_NAME: ${NGINX_SERVER_NAME}
+    env_file:
+      - .env
     ports:
       - "80:80"
       - "443:443"
@@ -27,7 +31,6 @@ services:
       - /volumes/media:/media/
       - /volumes/static:/static/
       - /volumes/logs/proxy:/var/log/nginx/
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - /volumes/logs:/logs/
     depends_on:
       - backend

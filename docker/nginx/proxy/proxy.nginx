@@ -16,8 +16,11 @@ http {
     access_log /var/log/nginx/access.log;
     error_log /var/log/nginx/error.log;
 
-    upstream app_servers {
+    upstream backend_servers {
         server scrummage_backend_1:8000;
+        server scrummage_backend_2:8000;
+        server scrummage_backend_3:8000;
+        server scrummage_backend_4:8000;
     }
 
     server {
@@ -27,9 +30,9 @@ http {
 
     server {
         listen 443 ssl;
-        server_name scrummage.natoora.com;
-        ssl_certificate /etc/nginx/ssl/log-machine.crt;
-        ssl_certificate_key /etc/nginx/ssl/log-machine.key;
+        server_name SERVER_NAME_PLACEHOLDER;
+        ssl_certificate /etc/nginx/ssl/natoora.crt;
+        ssl_certificate_key /etc/nginx/ssl/natoora.key;
         ssl_protocols TLSv1.2 TLSv1.3;
         ssl_ciphers EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;
 
