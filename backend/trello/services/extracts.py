@@ -1,6 +1,10 @@
+import logging
+
 from trello.models import TrelloBoard, TrelloList, TrelloCard, TrelloLabel
 from trello.utils.api import get_from_trello
 from trello.utils.string_utils import get_est
+
+logger = logging.getLogger(__name__)
 
 
 class TrelloBoardService:
@@ -42,18 +46,21 @@ class TrelloBoardService:
 
     @staticmethod
     def save_card(t_id, t_list, t_labels, t_name, t_url, t_estimate, t_points_extra):
-        trello_card, _ = TrelloCard.objects.update_or_create(
-            trello_id=t_id,
-            defaults={
-                "trello_list": t_list,
-                "name": t_name,
-                "url": t_url,
-                "points_estimated": t_estimate,
-                "points_consumed_extra": t_points_extra
-            }
-        )
-        for tl in t_labels:
-            trello_card.trello_labels.add(tl)
+        try:
+            trello_card, _ = TrelloCard.objects.update_or_create(
+                trello_id=t_id,
+                defaults={
+                    "trello_list": t_list,
+                    "name": t_name,
+                    "url": t_url,
+                    "points_estimated": t_estimate,
+                    "points_consumed_extra": t_points_extra
+                }
+            )
+            for tl in t_labels:
+                trello_card.trello_labels.add(tl)
+        except Exception as e:
+            logger.exception(f"Problem saving Trello card {e}")
 
     @staticmethod
     def save_labels(t_labels):
