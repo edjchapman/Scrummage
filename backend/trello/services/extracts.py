@@ -47,16 +47,14 @@ class TrelloBoardService:
     @staticmethod
     def save_card(t_id, t_list, t_labels, t_name, t_url, t_estimate, t_points_extra):
         try:
-            trello_card, _ = TrelloCard.objects.update_or_create(
-                trello_id=t_id,
-                defaults={
-                    "trello_list": t_list,
-                    "name": t_name,
-                    "url": t_url,
-                    "points_estimated": t_estimate,
-                    "points_consumed_extra": t_points_extra
-                }
-            )
+            trello_card = TrelloCard()
+            trello_card.trello_id = t_id
+            trello_card.trello_list = t_list
+            trello_card.name = t_name
+            trello_card.url = t_url
+            trello_card.points_estimated = t_estimate
+            trello_card.points_consumed_extra = t_points_extra
+            trello_card.save()
             for tl in t_labels:
                 trello_card.trello_labels.add(tl)
         except Exception as e:
