@@ -8,7 +8,7 @@ class TrelloBoard(BaseModel):
     Trello Board
     """
     trello_id = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -20,7 +20,7 @@ class TrelloList(BaseModel):
     """
     trello_id = models.CharField(max_length=50)
     trello_board = models.ForeignKey('trello.TrelloBoard', on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -33,7 +33,7 @@ class TrelloCard(BaseModel):
     trello_id = models.CharField(max_length=50)
     trello_list = models.ForeignKey('trello.TrelloList', on_delete=models.CASCADE)
     trello_labels = models.ManyToManyField('trello.TrelloLabel', blank=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     url = models.URLField(null=True, blank=True)
     points_estimated = models.FloatField(default=0, null=True, blank=True)
     points_consumed_extra = models.FloatField(default=0, null=True, blank=True)
@@ -50,7 +50,7 @@ class TrelloLabel(BaseModel):
     Trello Label.
     """
     trello_id = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
