@@ -36,13 +36,6 @@ services:
       - backend
     restart: always
 
-  # MAIL SERVER
-  mailserver:
-    image: natoora/postfix
-    volumes:
-      - /volumes/logs/mailserver/:/var/logs/
-    restart: always
-
   # REDIS
   redis:
     image: redis
