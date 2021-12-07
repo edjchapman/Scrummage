@@ -7,7 +7,7 @@ channels==3.0.3
 
 # Web Framework
 # https://docs.djangoproject.com/en/3.1/
-Django==3.1.7
+Django>=3.1.13
 django-filter==2.4.0
 
 # Django Rest Framework
