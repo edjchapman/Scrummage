@@ -1,8 +1,8 @@
 import logging
 
 from trello.models import TrelloBoard, TrelloList, TrelloCard, TrelloLabel
-from trello.utils.api import get_from_trello
 from trello.utils.string_utils import get_est
+from trello.utils.trello_api import get_from_trello
 
 logger = logging.getLogger(__name__)
 
