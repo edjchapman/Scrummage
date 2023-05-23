@@ -32,4 +32,4 @@ psycopg2==2.8.6
 
 # HTTP library
 # https://requests.readthedocs.io/
-requests==2.25.1
+requests==2.31.0
